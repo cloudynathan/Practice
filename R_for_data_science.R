@@ -2,7 +2,7 @@
 library(tidyverse)
 library(nycflights13)
 
-#--- dplyr Basics [PDF pg. 71 of 520]
+#------ dplyr Basics [PDF pg. 71 of 520]
 #filter() = pick observations by their values
 filter(flights, month == 11 | month == 12)
 filter(flights, month %in% c(11,12))
@@ -41,4 +41,5 @@ daily <- group_by(flights, year, month, day)
 
 #count()
 
+#------ dplyr Basics [PDF pg. 71 of 520]
 
