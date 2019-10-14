@@ -41,5 +41,48 @@ daily <- group_by(flights, year, month, day)
 
 #count()
 
-#------ dplyr Basics [PDF pg. 71 of 520]
+#------ Replace unusual values with NA; overwrite original column [PDF pg. 117 of 520]
+diamonds2 <- diamonds %>% 
+  mutate(y = ifelse(y < 4 | y > 20, NA, y))
 
+#------ tribble()
+tribble(
+  ~x, ~y, ~z,
+  #--|--|----
+  "a", 2, 3.6,
+  "b", 1, 8.5
+) #this is an easy way to make a small tibble
+
+#------ View all columns with print
+nycflights13::flights %>%
+  print(n = 10, width = Inf)
+
+#------ read_csv() [PDF pg. 152 of 520]
+read_csv("a,b,c
+1,2,3
+4,5,6")
+#> # A tibble: 2 × 3
+#> a b c
+#> <int> <int> <int>
+#> 1 1 2 3
+#> 2 4 5 6
+
+#-- skip n lines of metadata at the top of the file [PDF pg. 153 of 520]
+read_csv("The first line of metadata
+The second line of metadata
+x,y,z
+1,2,3", skip = 2)
+#> # A tibble: 1 × 3
+#> x y z
+#> <int> <int> <int>
+#> 1 1 2 3
+
+read_csv("# A comment I want to skip
+x,y,z
+1,2,3", comment = "#")
+#> # A tibble: 1 × 3
+#> x y z
+#> <int> <int> <int>
+#> 1 1 2 3
+
+################################################Start 153 of 520 pdf
