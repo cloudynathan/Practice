@@ -85,4 +85,15 @@ x,y,z
 #> <int> <int> <int>
 #> 1 1 2 3
 
-################################################Start 153 of 520 pdf
+#------ Tidy Data with tidyr [PDF 178 of 520]
+#gather()
+#spread()
+#separate()
+#unite()
+
+##################### Start Relational Data with dplyr [PDF 197 of 520]
+
+
+
+
+
