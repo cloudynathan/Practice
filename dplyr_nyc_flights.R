@@ -46,7 +46,20 @@ flights %>% select(hour, dep_delay) %>% group_by(hour) %>%
   top_n(1, percent_delay)
 
 # --- Question 12: Which flight(s) had the greatest scheduled length (time between scheduled departure and arrival)?
+flights %>% mutate(duration = sched_arr_time - sched_dep_time) %>% arrange(-duration) %>% head() %>% 
+  select(flight, origin, dest, air_time, duration)
 
+
+#----- Average delay time for each destination per hour (x = hour, y = avg delay, line=destination)
+flights %>% select(hour, dep_delay, dest) %>% group_by(hour, dest) %>% summarize(avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  filter(dest %in%  (flights %>% count(dest) %>% arrange(-n) %>% head() %>% pull(dest))) %>% 
+  ggplot(aes(x=hour, y=avg_delay, group=dest, color=dest)) + geom_line() + geom_point()
+
+#----- Average delay time for each destination per hour by origin (x = hour, y = avg delay, line=destination, facet_wrap=origin)
+flights %>% select(hour, dep_delay, dest, origin) %>% 
+  group_by(hour, dest, origin) %>% summarize(avg_delay = mean(dep_delay, na.rm = TRUE)) %>%
+  filter(dest %in%  (flights %>% count(dest) %>% arrange(-n) %>% head() %>% pull(dest))) %>% 
+  ggplot(aes(x=hour, y=avg_delay, group=dest, color=dest)) + geom_line() + geom_point() + facet_wrap(~origin)
 
 
 
